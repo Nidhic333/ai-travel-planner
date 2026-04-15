@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Travel Planner</title>
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #f4f6f8;
+            text-align: center;
+        }
+
+        h1 {
+            color: #2c3e50;
+        }
+
+        form {
+            background: white;
+            padding: 20px;
+            margin: auto;
+            width: 300px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px gray;
+        }
+
+        input, button {
+            width: 90%;
+            padding: 8px;
+            margin: 5px;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .result {
+            background: white;
+            margin: 20px auto;
+            padding: 15px;
+            width: 400px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px gray;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>✈️ AI Travel Planner</h1>
+
+<form method="POST">
+    <input type="text" name="destination" placeholder="Destination" required><br>
+    <input type="number" name="days" placeholder="Days" required><br>
+    <input type="number" name="budget" placeholder="Budget" required><br>
+    <button type="submit">Generate Plan</button>
+</form>
+
+{% if result %}
+<div class="result">
+    <h2>📊 Result</h2>
+    <p><b>Status:</b> {{ result.status }}</p>
+    <p><b>Total Cost:</b> ₹{{ result.total_cost }}</p>
+
+    <h3>📅 Itinerary</h3>
+    {% for day in result.plan %}
+        <p><b>Day {{ day.day }}:</b> {{ day.activity }}</p>
+        <p>💰 ₹{{ day.estimated_cost }} | 🏨 {{ day.hotel }} | 🚗 {{ day.transport }}</p>
+        <hr>
+    {% endfor %}
+</div>
+{% endif %}
+
+</body>
+</html>
